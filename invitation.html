@@ -18,7 +18,8 @@
         .book {
             position: relative;
             width: 100%;
-            height: 100vh;
+            height: 100vh; /* fallback for older browsers */
+            height: 100dvh;
             perspective: 1500px;
             overflow: hidden;
             background: #3D1A1A;
@@ -286,9 +287,41 @@
             to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
+        /* ===== Music Toggle Button ===== */
+        .music-toggle {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 100;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            background: rgba(123, 31, 52, 0.7);
+            backdrop-filter: blur(8px);
+            color: var(--gold);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .music-toggle:hover {
+            background: rgba(123, 31, 52, 0.9);
+            border-color: var(--gold);
+        }
+
+        .music-toggle.playing {
+            border-color: var(--gold);
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+        }
+
         /* ===== Page Content Wrappers ===== */
         .page-inner {
-            min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -304,9 +337,9 @@
         .page .events-section,
         .page .venue-section,
         .page .footer-section {
-            min-height: 100vh;
-            height: 100vh;
-            max-height: 100vh;
+            min-height: 100dvh;
+            height: 100dvh;
+            max-height: 100dvh;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -532,6 +565,14 @@
                 padding: 4px 8px;
                 top: 8px;
                 right: 8px;
+            }
+
+            .music-toggle {
+                top: 8px;
+                left: 8px;
+                width: 34px;
+                height: 34px;
+                font-size: 0.9rem;
             }
 
             .page .hero,
@@ -890,6 +931,9 @@
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- Music Toggle -->
+    <button class="music-toggle" id="musicToggle" aria-label="Toggle music">🔇</button>
+
     <!-- Book Navigation -->
     <nav class="book-nav" id="bookNav">
         <button class="nav-btn" id="prevBtn" disabled aria-label="Previous page">&#8249;</button>
@@ -1098,24 +1142,45 @@
             fwContainer.appendChild(s);
         }
 
-        // ===== Background Music - Autoplay =====
+        // ===== Music Toggle =====
         var bgMusic = document.getElementById('bgMusic');
+        var musicToggle = document.getElementById('musicToggle');
         bgMusic.volume = 0.5;
 
-        function tryPlayMusic() {
-            bgMusic.play().catch(function () {
-                // Autoplay blocked by browser — play on first user interaction
-                document.addEventListener('click', function playOnce() {
-                    bgMusic.play().catch(function () {});
-                    document.removeEventListener('click', playOnce);
-                });
-                document.addEventListener('touchstart', function playOnceTouch() {
-                    bgMusic.play().catch(function () {});
-                    document.removeEventListener('touchstart', playOnceTouch);
-                });
-            });
+        function updateMusicBtn() {
+            if (bgMusic.paused) {
+                musicToggle.textContent = '🔇';
+                musicToggle.classList.remove('playing');
+            } else {
+                musicToggle.textContent = '🔊';
+                musicToggle.classList.add('playing');
+            }
         }
-        tryPlayMusic();
+
+        // Try autoplay, update button accordingly
+        bgMusic.play().then(updateMusicBtn).catch(function () {
+            updateMusicBtn();
+            // Autoplay blocked — start on first user interaction
+            document.addEventListener('click', function playOnce(e) {
+                if (e.target === musicToggle) return; // let toggle handler deal with it
+                bgMusic.play().then(updateMusicBtn).catch(function () {});
+                document.removeEventListener('click', playOnce);
+            });
+            document.addEventListener('touchstart', function playOnceTouch() {
+                bgMusic.play().then(updateMusicBtn).catch(function () {});
+                document.removeEventListener('touchstart', playOnceTouch);
+            });
+        });
+
+        musicToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (bgMusic.paused) {
+                bgMusic.play().then(updateMusicBtn).catch(function () {});
+            } else {
+                bgMusic.pause();
+                updateMusicBtn();
+            }
+        });
     </script>
 </body>
 </html>

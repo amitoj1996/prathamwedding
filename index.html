@@ -230,119 +230,6 @@
             background: linear-gradient(135deg, #FFE44D, #FFD700, #FFC107);
         }
 
-        /* ===== Music Player - Vinyl Record ===== */
-        .vinyl-player {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 50;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            animation: fadeIn 1s ease-out 2s both;
-        }
-
-        .vinyl-disc {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: conic-gradient(
-                from 0deg,
-                #5a1025 0deg, #7B1F34 30deg,
-                #5a1025 60deg, #7B1F34 90deg,
-                #5a1025 120deg, #7B1F34 150deg,
-                #5a1025 180deg, #7B1F34 210deg,
-                #5a1025 240deg, #7B1F34 270deg,
-                #5a1025 300deg, #7B1F34 330deg,
-                #5a1025 360deg
-            );
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            position: relative;
-            cursor: pointer;
-            transition: box-shadow 0.5s ease;
-        }
-
-        .vinyl-disc:hover {
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.25);
-        }
-
-        .vinyl-disc::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #FFD700 0%, #B8860B 100%);
-        }
-
-        .vinyl-disc::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #7B1F34;
-            z-index: 1;
-        }
-
-        .vinyl-groove {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            border: 1px solid rgba(255, 215, 0, 0.06);
-            pointer-events: none;
-        }
-
-        .vinyl-groove:nth-child(1) { width: 50px; height: 50px; }
-        .vinyl-groove:nth-child(2) { width: 60px; height: 60px; }
-        .vinyl-groove:nth-child(3) { width: 70px; height: 70px; }
-
-        .vinyl-player.playing .vinyl-disc {
-            animation: spin 4s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .play-dot {
-            position: absolute;
-            bottom: -4px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            transition: background 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .vinyl-player.playing .play-dot {
-            background: #FFD700;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        .music-label {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 10px;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #FFD700;
-            opacity: 0.7;
-            white-space: nowrap;
-        }
-
         /* Floating flower petals */
         .petal {
             position: fixed;
@@ -421,22 +308,6 @@
             .corner-flower--bl { bottom: 14px; left: 14px; }
             .corner-flower--br { bottom: 14px; right: 14px; }
 
-            .vinyl-player {
-                bottom: 18px;
-                right: 18px;
-            }
-
-            .vinyl-disc {
-                width: 64px;
-                height: 64px;
-            }
-
-            .vinyl-disc::before { width: 22px; height: 22px; }
-
-            .vinyl-groove:nth-child(1) { width: 40px; height: 40px; }
-            .vinyl-groove:nth-child(2) { width: 48px; height: 48px; }
-            .vinyl-groove:nth-child(3) { width: 56px; height: 56px; }
-
             .ganesha-img { width: 60px; }
         }
     </style>
@@ -452,23 +323,6 @@
     <div class="corner-flower corner-flower--tr">🌸</div>
     <div class="corner-flower corner-flower--bl">🌸</div>
     <div class="corner-flower corner-flower--br">🌺</div>
-
-    <!-- Background Music -->
-    <audio id="bgMusic" loop preload="auto">
-        <source src="music.webm" type="audio/webm">
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Vinyl Record Music Player -->
-    <div class="vinyl-player" id="vinylPlayer">
-        <div class="vinyl-disc" id="vinylDisc">
-            <div class="vinyl-groove"></div>
-            <div class="vinyl-groove"></div>
-            <div class="vinyl-groove"></div>
-            <div class="play-dot"></div>
-        </div>
-        <span class="music-label" id="musicLabel">Click to Play</span>
-    </div>
 
     <!-- Page Transition Overlay -->
     <div class="page-transition" id="transition"></div>
@@ -501,51 +355,6 @@
     </div>
 
     <script>
-        // Music controls
-        var music = document.getElementById('bgMusic');
-        var vinylPlayer = document.getElementById('vinylPlayer');
-        var vinylDisc = document.getElementById('vinylDisc');
-        var musicLabel = document.getElementById('musicLabel');
-        music.volume = 0.5;
-
-        function startMusic() {
-            music.play().then(function () {
-                vinylPlayer.classList.add('playing');
-                musicLabel.textContent = 'Now Playing';
-            }).catch(function () {
-                // Autoplay blocked — play on first user interaction
-                document.addEventListener('click', function playOnce() {
-                    music.play().then(function () {
-                        vinylPlayer.classList.add('playing');
-                        musicLabel.textContent = 'Now Playing';
-                    }).catch(function () {});
-                    document.removeEventListener('click', playOnce);
-                });
-                document.addEventListener('touchstart', function playOnceTouch() {
-                    music.play().then(function () {
-                        vinylPlayer.classList.add('playing');
-                        musicLabel.textContent = 'Now Playing';
-                    }).catch(function () {});
-                    document.removeEventListener('touchstart', playOnceTouch);
-                });
-            });
-        }
-        startMusic();
-
-        vinylDisc.addEventListener('click', function (e) {
-            e.stopPropagation();
-            if (music.paused) {
-                music.play().then(function () {
-                    vinylPlayer.classList.add('playing');
-                    musicLabel.textContent = 'Now Playing';
-                }).catch(function () {});
-            } else {
-                music.pause();
-                vinylPlayer.classList.remove('playing');
-                musicLabel.textContent = 'Click to Play';
-            }
-        });
-
         // Floating flower petals
         var petalEmojis = ['🌸', '🌺', '🌼', '💐', '🪷'];
         function createPetals() {
