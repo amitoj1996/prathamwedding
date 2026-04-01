@@ -883,71 +883,122 @@ body {
 /* ===== Responsive ===== */
 @media (max-width: 600px) {
     .hero-names {
-        font-size: 3.8rem;
-    }
-
-    .hero-date {
-        font-size: 1.2rem;
-    }
-
-    .hero-ganesha {
-        width: 60px;
-    }
-
-    .auspicious-ganesha {
-        width: 70px;
-    }
-
-    .footer-garland {
-        font-size: 1.4rem;
-    }
-
-    .section-heading {
-        font-size: 2.2rem;
-    }
-
-    .section-heading.script {
         font-size: 2.8rem;
     }
 
+    .hero-date {
+        font-size: 1rem;
+    }
+
+    .hero-ganesha {
+        width: 45px;
+    }
+
+    .auspicious-ganesha {
+        width: 55px;
+    }
+
+    .footer-garland {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+
+    .section-heading {
+        font-size: 1.5rem;
+    }
+
+    .section-heading.script {
+        font-size: 2rem;
+    }
+
     .countdown {
-        gap: 15px;
+        gap: 8px;
+        margin-top: 15px;
     }
 
     .countdown-number {
-        font-size: 2.5rem;
+        font-size: 1.8rem;
     }
 
     .countdown-item {
-        min-width: 70px;
-        padding: 15px 10px;
+        min-width: 55px;
+        padding: 10px 6px;
+    }
+
+    .countdown-label {
+        font-size: 0.55rem;
+        margin-top: 4px;
     }
 
     .person-name {
-        font-size: 2.3rem;
+        font-size: 1.8rem;
+        margin-bottom: 5px;
     }
 
     .parent-name {
-        font-size: 1.15rem;
+        font-size: 0.95rem;
+    }
+
+    .relation {
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+    }
+
+    .family-card {
+        padding: 12px 15px;
     }
 
     .event-card {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        text-align: center;
-        padding: 25px 20px;
+        text-align: left;
+        padding: 10px 12px;
+        gap: 10px;
+        margin-bottom: 8px;
+    }
+
+    .event-icon-circle {
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
     }
 
     .event-name {
-        font-size: 1.4rem;
+        font-size: 1.1rem;
+    }
+
+    .event-time {
+        font-size: 0.7rem;
+    }
+
+    .event-desc {
+        display: none;
+    }
+
+    .event-day {
+        margin: 12px 0 8px;
     }
 
     .venue-name {
-        font-size: 2.3rem;
+        font-size: 1.8rem;
+    }
+
+    .venue-card {
+        padding: 25px 18px;
     }
 
     .footer-names {
-        font-size: 2.5rem;
+        font-size: 2rem;
+    }
+
+    .quote {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .quote-author {
+        font-size: 0.7rem;
+        margin-bottom: 15px;
     }
 
     .auspicious,
@@ -956,7 +1007,7 @@ body {
     .events-section,
     .venue-section,
     .footer-section {
-        padding: 65px 15px;
+        padding: 40px 15px;
     }
 }
 

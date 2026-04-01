@@ -506,8 +506,34 @@
         var vinylPlayer = document.getElementById('vinylPlayer');
         var vinylDisc = document.getElementById('vinylDisc');
         var musicLabel = document.getElementById('musicLabel');
+        music.volume = 0.5;
 
-        vinylDisc.addEventListener('click', function () {
+        function startMusic() {
+            music.play().then(function () {
+                vinylPlayer.classList.add('playing');
+                musicLabel.textContent = 'Now Playing';
+            }).catch(function () {
+                // Autoplay blocked — play on first user interaction
+                document.addEventListener('click', function playOnce() {
+                    music.play().then(function () {
+                        vinylPlayer.classList.add('playing');
+                        musicLabel.textContent = 'Now Playing';
+                    }).catch(function () {});
+                    document.removeEventListener('click', playOnce);
+                });
+                document.addEventListener('touchstart', function playOnceTouch() {
+                    music.play().then(function () {
+                        vinylPlayer.classList.add('playing');
+                        musicLabel.textContent = 'Now Playing';
+                    }).catch(function () {});
+                    document.removeEventListener('touchstart', playOnceTouch);
+                });
+            });
+        }
+        startMusic();
+
+        vinylDisc.addEventListener('click', function (e) {
+            e.stopPropagation();
             if (music.paused) {
                 music.play().then(function () {
                     vinylPlayer.classList.add('playing');
