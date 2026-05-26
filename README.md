@@ -11,7 +11,7 @@ A beautiful, responsive web-based wedding invitation card.
 
 ### Bride
 - **Name**: Priyanka Jhanwar
-- **Father**: Late. Shivratan Jhanwar
+- **Father**: Late Shri Shivratanji Badriprasadji Jhanwar
 - **Mother**: Kalawati Jhanwar
 
 ## Events
@@ -19,7 +19,7 @@ A beautiful, responsive web-based wedding invitation card.
 | Event | Date & Time | Location |
 |-------|-------------|----------|
 | Haldi | June 26th, 2:00 PM | Welcome ITC, Belgavi |
-| Sangeet | June 26th, 7:00 PM onwards | Welcome ITC, Belgavi |
+| Sangeet | June 26th, 7:30 PM onwards | Welcome ITC, Belgavi |
 | Nikasi (Wedding) | June 27th, 10:00 AM onwards | Welcome ITC, Belgavi |
 
 ## How to Use
