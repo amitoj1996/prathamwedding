@@ -20,7 +20,7 @@ A beautiful, responsive web-based wedding invitation card.
 |-------|-------------|----------|
 | Haldi | June 26th, 2:00 PM | Welcome ITC, Belgavi |
 | Sangeet | June 26th, 7:30 PM onwards | Welcome ITC, Belgavi |
-| Nikasi (Wedding) | June 27th, 10:00 AM onwards | Welcome ITC, Belgavi |
+| Nikasi (Wedding) | June 27th, 9:00 AM onwards | Welcome ITC, Belgavi |
 
 ## How to Use
 
